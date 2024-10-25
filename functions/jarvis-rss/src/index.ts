@@ -19,5 +19,7 @@ handle(async () => {
   const feed = await parser.parseURL('https://techcrunch.com/feed/');
   const markdown = feedToMarkdown(feed);
 
-  console.log(markdown);
+  return {
+    markdown,
+  };
 });

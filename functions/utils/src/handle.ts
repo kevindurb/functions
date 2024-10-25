@@ -11,7 +11,11 @@ const parseBody = (req: IncomingMessage) =>
 
     req.on('end', () => {
       try {
-        resolve(JSON.parse(body));
+        if (body) {
+          resolve(JSON.parse(body));
+        } else {
+          resolve(undefined);
+        }
       } catch (error) {
         reject(error);
       }
