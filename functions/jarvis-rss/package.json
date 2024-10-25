@@ -2,12 +2,14 @@
   "name": "@kevindurb/jarvis-rss",
   "version": "1.0.0",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
     "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
 }
