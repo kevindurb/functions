@@ -14,5 +14,7 @@
     "rss-parser": "^3.13.0"
   },
   "exports": "./build/index.js",
-  "bin": "./build/index.js"
+  "bin": {
+    "jarvis-rss": "./build/index.js"
+  }
 }
