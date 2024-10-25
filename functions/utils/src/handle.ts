@@ -26,7 +26,12 @@ const parseBody = (req: IncomingMessage) =>
 
 export const handle = (cb: (body: unknown) => Promise<unknown>) => {
   const server = http.createServer(async (req, res) => {
+    const url = new URL(`http://localhost${req.url}`);
     console.log('Request', req.method, req.url);
+    if (url.pathname === '/health') {
+      return res.writeHead(200).end();
+    }
+
     try {
       const body = await parseBody(req);
       console.log('Request Body', body);
@@ -37,7 +42,6 @@ export const handle = (cb: (body: unknown) => Promise<unknown>) => {
       if (response) {
         res.write(JSON.stringify(response));
       }
-      res.end();
     } catch (error) {
       console.error(error);
       res.writeHead(500, { 'content-type': 'application/json' });
@@ -46,8 +50,9 @@ export const handle = (cb: (body: unknown) => Promise<unknown>) => {
       } else {
         res.write(JSON.stringify({ error: 'Server Error' }));
       }
-      res.end();
     }
+
+    return res.end();
   });
 
   server.listen(process.env['PORT'], () => {
