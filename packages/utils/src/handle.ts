@@ -1,6 +1,13 @@
 import http from 'node:http';
 import type { IncomingMessage } from 'node:http';
 
+class Request {
+  constructor(
+    public readonly url: URL,
+    public readonly body: unknown,
+  ) {}
+}
+
 const parseBody = (req: IncomingMessage) =>
   new Promise((resolve, reject) => {
     let body = '';
@@ -24,7 +31,7 @@ const parseBody = (req: IncomingMessage) =>
     req.on('error', (error) => reject(error));
   });
 
-export const handle = (cb: (body: unknown) => Promise<unknown>) => {
+export const handle = (cb: (req: Request) => Promise<unknown>) => {
   const server = http.createServer(async (req, res) => {
     const url = new URL(`http://localhost${req.url}`);
     console.log('Request', req.method, req.url);
@@ -35,7 +42,8 @@ export const handle = (cb: (body: unknown) => Promise<unknown>) => {
     try {
       const body = await parseBody(req);
       console.log('Request Body', body);
-      const response = await cb(body);
+      const request = new Request(url, body);
+      const response = await cb(request);
       console.log('Response Body', response);
       res.writeHead(200, { 'content-type': 'application/json' });
 
