@@ -6,8 +6,6 @@
   "compilerOptions": {
     "incremental": true,
     "declaration": true,
-    "rootDir": "./src",
-    "outDir": "./build",
     "composite": true
   }
 }
