@@ -8,4 +8,7 @@ RUN npm install
 
 RUN npm run build
 
+# Run a second install to get function bins
+RUN npm install
+
 ENTRYPOINT ["npx"]
