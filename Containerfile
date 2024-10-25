@@ -8,4 +8,4 @@ RUN npm install
 
 RUN npm run build
 
-ENTRYPOINT ["node"]
+ENTRYPOINT ["npx"]

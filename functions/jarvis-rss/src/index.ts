@@ -1,4 +1,6 @@
-import http from 'node:http';
+#! /usr/bin/env node
+
+import { handle } from '@functions/utils';
 import Parser from 'rss-parser';
 
 const parser = new Parser();
@@ -13,15 +15,9 @@ ${item.content}`,
   .join('\n')}`;
 };
 
-const server = http.createServer(async (_, res) => {
+handle(async () => {
   const feed = await parser.parseURL('https://techcrunch.com/feed/');
   const markdown = feedToMarkdown(feed);
 
   console.log(markdown);
-
-  res.end();
-});
-
-server.listen(process.env['PORT'], () => {
-  console.log('Listening...', server.address());
 });

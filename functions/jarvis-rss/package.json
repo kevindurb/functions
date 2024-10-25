@@ -1,5 +1,5 @@
 {
-  "name": "@kevindurb/jarvis-rss",
+  "name": "@functions/jarvis-rss",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -10,6 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@functions/utils": "^1.0.0",
     "rss-parser": "^3.13.0"
-  }
+  },
+  "exports": "./build/index.js",
+  "bin": "./build/index.js"
 }

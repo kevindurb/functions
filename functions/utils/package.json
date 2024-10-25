@@ -1,0 +1,14 @@
+{
+  "name": "@functions/utils",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {},
+  "exports": "./build/index.js"
+}
