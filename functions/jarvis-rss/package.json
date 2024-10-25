@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@functions/utils": "^1.0.0",
+    "groq-sdk": "^0.7.0",
     "rss-parser": "^3.13.0"
   },
   "exports": "./build/index.js",
