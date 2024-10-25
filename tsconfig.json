@@ -1,21 +1,21 @@
 {
-  "extends": [
-    "@tsconfig/node22/tsconfig.json",
-    "@tsconfig/strictest/tsconfig.json"
-  ],
-  "compilerOptions": {
-    "incremental": true,
-    "declaration": true,
-    "rootDir": "./src",
-    "outDir": "./build"
-  },
-  "files": [],
-  "references": [
-    {
-      "path": "./functions/jarvis-rss"
-    },
-    {
-      "path": "./functions/utils"
-    }
-  ]
+	"extends": [
+		"@tsconfig/node22/tsconfig.json",
+		"@tsconfig/strictest/tsconfig.json"
+	],
+	"compilerOptions": {
+		"incremental": true,
+		"declaration": true,
+		"rootDir": "./src",
+		"outDir": "./build"
+	},
+	"files": [],
+	"references": [
+		{
+			"path": "./functions/utils"
+		},
+		{
+			"path": "./functions/jarvis-rss"
+		}
+	]
 }
