@@ -22,7 +22,7 @@ const feedToMarkdown = (feed: Parser.Output<unknown>) => {
 ${feed.items
   .map(
     (item) => `## ${item.title}
-${item.contentSnippet}`,
+${item.contentSnippet?.substring(0, 100)}`,
   )
   .join('\n')}`;
 };
