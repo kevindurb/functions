@@ -17,12 +17,12 @@ const client = new Groq({
 
 const parser = new Parser();
 
-const feedToMarkdown = (feed: Parser.Output<Record<string, unknown>>) => {
+const feedToMarkdown = (feed: Parser.Output<unknown>) => {
   return `# ${feed.title}
 ${feed.items
   .map(
     (item) => `## ${item.title}
-${item.summary ?? item.contentSnippet}`,
+${item.contentSnippet}`,
   )
   .join('\n')}`;
 };
