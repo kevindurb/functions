@@ -27,12 +27,28 @@ ${item.content}`,
   .join('\n')}`;
 };
 
-handle(async () => {
-  const feed = await parser.parseURL('https://techcrunch.com/feed/');
-  const markdown = feedToMarkdown(feed);
+const feedUrls = [
+  'https://techcrunch.com/feed/',
+  'https://www.formula1.com/en/latest/all.xml',
+];
 
-  const prompt = `
-Good morning, Jarvis. Please greet me properly, like you're my AI butler, and give me a summary of these articles. Make sure to sound fancy and a bit like Tony Stark's assistant. Keep it simple — just the important stuff I care about, without getting too technical. Let's keep it classy, Jarvis!
+handle(async () => {
+  const feeds = await Promise.all(
+    feedUrls.map((feedUrl) => parser.parseURL(feedUrl)),
+  );
+
+  const markdown = feeds.reduce(
+    (acc, feed) => `${acc}
+${feedToMarkdown(feed)}`,
+    '',
+  );
+
+  const prompt = `Good morning, Jarvis.
+Please greet me properly, like you're my AI butler, and give me a summary of these articles.
+Make sure to sound fancy and a bit like Tony Stark's assistant.
+Keep it simple — just the important stuff I care about, without getting too technical.
+Format it as basic html with headers and paragraphs.
+Let's keep it classy, Jarvis!
 \`\`\`
 ${markdown}
 \`\`\`
@@ -56,7 +72,7 @@ ${markdown}
     from: 'beavercloud@fastmail.com',
     to: 'kevindurb@fastmail.com',
     subject: 'Your Daily News',
-    text: responseContent,
+    html: responseContent,
   });
 
   return {
