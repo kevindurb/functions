@@ -64,7 +64,6 @@ ${feedToMarkdown(feed)}`,
 Please greet me properly, like you're my AI butler, and give me a summary of these articles.
 Make sure to sound fancy and a bit like Tony Stark's assistant.
 Keep it simple — just the important stuff I care about, without getting too technical.
-Format it as basic html with headers and paragraphs.
 Let's keep it classy, Jarvis!
 \`\`\`
 ${markdown}
@@ -90,7 +89,7 @@ ${markdown}
       from: '"Jarvis" <beavercloud@fastmail.com>',
       to: 'kevindurb@fastmail.com',
       subject: 'Your Daily News',
-      html: responseContent,
+      text: responseContent,
     });
 
     return {
