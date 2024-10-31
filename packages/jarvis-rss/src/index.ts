@@ -2,7 +2,14 @@
 
 import { handle } from '@functions/utils';
 import Groq from 'groq-sdk';
+import nodemailer from 'nodemailer';
 import Parser from 'rss-parser';
+
+const mailer = nodemailer.createTransport({
+  host: 'smtp-relay-service.default',
+  port: 25,
+  secure: false,
+});
 
 const client = new Groq({
   apiKey: process.env['GROQ_KEY'],
@@ -39,6 +46,17 @@ ${markdown}
         content: prompt,
       },
     ],
+  });
+
+  const responseContent = response.choices[0]?.message.content;
+
+  if (!responseContent) return;
+
+  await mailer.sendMail({
+    from: 'beavercloud@fastmail.com',
+    to: 'kevindurb@fastmail.com',
+    subject: 'Your Daily News',
+    text: responseContent,
   });
 
   return {
