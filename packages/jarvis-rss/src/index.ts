@@ -30,12 +30,29 @@ ${item.content}`,
 const feedUrls = [
   'https://techcrunch.com/feed/',
   'https://www.formula1.com/en/latest/all.xml',
+  'https://hnrss.org/best',
+  'https://feeds.arstechnica.com/arstechnica/features',
+  'https://www.schneier.com/feed/atom/',
 ];
 
-handle(async () => {
+const yesterday = new Date(Date.now() - 1000 * 60 * 60 * 24);
+
+const loadFeeds = async () => {
   const feeds = await Promise.all(
     feedUrls.map((feedUrl) => parser.parseURL(feedUrl)),
   );
+
+  for (const feed of feeds) {
+    feed.items = feed.items.filter(
+      (item) => !item.pubDate || item.pubDate > yesterday.toISOString(),
+    );
+  }
+
+  return feeds;
+};
+
+handle(async () => {
+  const feeds = await loadFeeds();
 
   const markdown = feeds.reduce(
     (acc, feed) => `${acc}
@@ -69,7 +86,7 @@ ${markdown}
   if (!responseContent) return;
 
   await mailer.sendMail({
-    from: 'beavercloud@fastmail.com',
+    from: '"Jarvis" <beavercloud@fastmail.com>',
     to: 'kevindurb@fastmail.com',
     subject: 'Your Daily News',
     html: responseContent,
