@@ -64,6 +64,7 @@ ${feedToMarkdown(feed)}`,
 Please greet me properly, like you're my AI butler, and give me a summary of these articles.
 Make sure to sound fancy and a bit like Tony Stark's assistant.
 Keep it simple — just the important stuff I care about, without getting too technical.
+Give me a summary of the state of the world at the top followed by the most exciting articles.
 Let's keep it classy, Jarvis!
 \`\`\`
 ${markdown}
