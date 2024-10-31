@@ -93,6 +93,7 @@ ${markdown}
   });
 
   return {
+    feeds,
     response,
   };
 });
