@@ -71,29 +71,37 @@ ${markdown}
 \`\`\`
 `;
 
-  const response = await client.chat.completions.create({
-    model: 'llama-3.2-90b-text-preview',
-    messages: [
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ],
-  });
+  try {
+    const response = await client.chat.completions.create({
+      model: 'llama-3.2-90b-text-preview',
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+    });
 
-  const responseContent = response.choices[0]?.message.content;
+    const responseContent = response.choices[0]?.message.content;
 
-  if (!responseContent) return;
+    if (!responseContent) return;
 
-  await mailer.sendMail({
-    from: '"Jarvis" <beavercloud@fastmail.com>',
-    to: 'kevindurb@fastmail.com',
-    subject: 'Your Daily News',
-    html: responseContent,
-  });
+    await mailer.sendMail({
+      from: '"Jarvis" <beavercloud@fastmail.com>',
+      to: 'kevindurb@fastmail.com',
+      subject: 'Your Daily News',
+      html: responseContent,
+    });
 
-  return {
-    feeds,
-    response,
-  };
+    return {
+      feeds,
+      response,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      error: 'Server Error',
+      feeds,
+    };
+  }
 });
